@@ -1,0 +1,21 @@
+@font-face {
+    font-family: '5kaSansDesign';
+    src: local('5kaSansDesign Regular'), local('5kaSansDesign-Regular'),
+        url('../fonts/5kaSansDesignRegular/5kaSansDesignRegular.woff2') format('woff2'),
+        url('../fonts/5kaSansDesignRegular/5kaSansDesignRegular.woff') format('woff'),
+        url('../fonts/5kaSansDesignRegular/5kaSansDesignRegular.ttf') format('truetype');
+        url('../fonts/5kaSansDesignRegular/5kaSansDesignRegular.eot') format('embedded-opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: '5kaSansDesign';
+    src: local('5kaSansDesign Black'), local('5kaSansDesign-Black'),
+    url('../fonts/5kaSansDesignBlack/5kaSansDesignBlack.woff2') format('woff2'),
+    url('../fonts/5kaSansDesignBlack/5kaSansDesignBlack.woff') format('woff'),
+    url('../fonts/5kaSansDesignBlack/5kaSansDesignBlack.ttf') format('truetype');
+    url('../fonts/5kaSansDesignBlack/5kaSansDesignBlack.eot') format('embedded-opentype');
+    font-weight: 900;
+    font-style: normal;
+}
