@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled, {keyframes} from 'styled-components';
 import Background from "./Background";
 import {FullLogo} from "./svg/FullLogo";
@@ -226,7 +226,6 @@ const animateTextSizeMd = keyframes`
       -o-transform: rotate(-37.5deg) skew(-10deg,-1deg);
   }
 `
-
 const animateTextSizeLg = keyframes`
   0%{
       width: 150px;
@@ -280,7 +279,7 @@ const FortuneTextWrapper = styled.div`
     }
 
     @media screen and (min-width: 1235px){
-        animation: ${animateTextSizeLg} 0.95s linear;
+        animation: ${animateTextSizeLg} 1.3s linear;
         animation-fill-mode: both;
     }
 `
@@ -412,7 +411,7 @@ const Landing = () => {
                     {isTextShown && isGifLoaded && (
                         <PredictWrapper>
                             <FortuneTextWrapper>
-                                <FortuneTitle>{text.title + window.innerWidth}</FortuneTitle>
+                                <FortuneTitle>{text.title}</FortuneTitle>
                                 <FortuneText>{text.text}</FortuneText>
                             </FortuneTextWrapper>
                         </PredictWrapper>
