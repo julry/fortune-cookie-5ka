@@ -29,11 +29,12 @@ const Text = styled.p`
 `
 const Info = styled.div`
     position: absolute;
-    top: 3vh;
-    left: 2.9861vw;
+    top: 0.5vh;
+    left: 0.9861vw;
     
     @media screen and (min-width: 640px){
           top: 5vh;
+          left: 2.9861vw;
     }
 `
 
@@ -51,14 +52,15 @@ const Logo = styled(FullLogo)`
     @media screen and (min-width: 1235px){
         height: 11vh;
         width: 24.4444vw;
-        max-height: 99px;
+        max-height: 80px;
     }
 `
 const TitleDesktop = styled(Text)`
     color: #FFFFFF;
-    margin: 1.8888vh 0 0 5vw;
+    margin: 0.8888vh 0 0 4.4vw;
     font-weight: 900;
-    
+    font-size: 20px;
+    line-height: 23px;
     @media screen and (max-width: 1235px){
       display: none;
     }

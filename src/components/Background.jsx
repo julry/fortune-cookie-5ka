@@ -8,10 +8,22 @@ const Wrapper = styled.div`
   overflow: hidden;
   margin-top: -1px;
 `
-
-const TopRectangle = styled(Background_top)`
+const TopRectangleWrapper = styled.div`
     width: 100vw;
-    @media screen and (max-width: 1240px) and (min-width: 640px){
+    overflow: hidden;
+    height: 45.5vh;
+    position: relative;
+    max-height: 462px;
+    @media screen and (max-width: 1240px){
+        display: none;
+    }
+`
+const TopRectangle = styled(Background_top)`
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    @media screen and (max-width: 1240px){
         display: none;
     }
 `
@@ -23,9 +35,19 @@ const TopRectangleTablets = styled(Background_top_tablets)`
     }
 `
 
+const TopRectangleMobile = styled(Background_top)`
+    width: 100vw;
+    @media screen and (min-width: 640px){
+        display: none;
+    }
+`
+
 const Background = () => {
     return (<Wrapper>
-        <TopRectangle />
+        <TopRectangleWrapper>
+            <TopRectangle />
+        </TopRectangleWrapper>
+        <TopRectangleMobile />
         <TopRectangleTablets />
     </Wrapper>)
 }
