@@ -5,6 +5,7 @@ import {FullLogo} from "./svg/FullLogo";
 import {StartButton} from "./StartButton";
 import {bus, cookie, present} from "../constants/images";
 import {getText} from "../utils/getText";
+import {ShareButton} from "./ShareButton";
 
 const Wrapper = styled.div`
     position: relative;
@@ -266,6 +267,20 @@ const animateTextSizeLg = keyframes`
   }
   
 `
+
+const animateShare = keyframes`
+  0%{
+     opacity: 0;
+     visibility: hidden;
+
+  }
+  100%{
+     opacity: 1;
+     visibility: visible;
+  }
+  
+`
+
 const Gif = styled.img`
     transform: rotate(-38deg);
     animation: ${animateGifSize} 2s;
@@ -366,6 +381,23 @@ const Link = styled.a`
     }
 `
 
+const ShareButtonStyled = styled(ShareButton)`
+    position: absolute;
+    right: 6vw;
+    bottom: 6vh;
+    animation: ${animateShare} 0.3s ease-in;
+    animation-fill-mode: both;
+    
+    @media screen and (min-width: 640px){
+        right: 3vw;
+        bottom: 4vh;
+    }
+    @media screen and (min-width: 1100px){
+        right: 3vw;
+        bottom: 5vh;
+    }
+`
+
 const Landing = () => {
     const [isCookieShow, setIsCookieShown] = useState(false);
     const [loadSrc, setLoadSrc] = useState(cookie+"?a="+Math.random()*1000);
@@ -398,6 +430,10 @@ const Landing = () => {
         }, 0)
 
     }
+
+    const onShare = (event) => {
+        event.stopPropagation();
+    };
 
 
     return (<Wrapper>
@@ -439,6 +475,7 @@ const Landing = () => {
 
                     )}
                 </CookieWrapper>
+                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={onShare} />}
             </GifWrapper>
         )}
         <BottomRectangle />
