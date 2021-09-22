@@ -13,7 +13,7 @@ const TopRectangleWrapper = styled.div`
     overflow: hidden;
     height: 45.5vh;
     position: relative;
-    max-height: 462px;
+    max-height: 32vw;
     @media screen and (max-width: 1240px){
         display: none;
     }

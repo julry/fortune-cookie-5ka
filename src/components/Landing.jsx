@@ -51,13 +51,14 @@ const Logo = styled(FullLogo)`
     }
     @media screen and (min-width: 1235px){
         height: 11vh;
-        width: 24.4444vw;
-        max-height: 80px;
+        width: 39.1111vh;
+        max-width: 352px;
+        max-height: 99px;
     }
 `
 const TitleDesktop = styled(Text)`
     color: #FFFFFF;
-    margin: 0.8888vh 0 0 4.4vw;
+    margin: 0.8888vh 0 0 2.6vh;
     font-weight: 900;
     font-size: 20px;
     line-height: 23px;
@@ -152,7 +153,7 @@ const BusImg = styled.img`
 `
 const PresentWrapper = styled.div`
   position: absolute;
-  left: 45%;
+  left: 43%;
   bottom:46.2%;
   height: 37%;
   overflow: hidden;
@@ -179,6 +180,14 @@ const PresentImg = styled.img`
   @media screen and (min-width: 1235px){
         min-width: auto;
         max-width: none;
+        
+        @media screen and (max-height: 600px){
+            max-width: 125px;
+        }
+        
+        @media screen and (min-height: 900px){
+            min-width: 22vh;
+        }
   }
 `
 const GifWrapper = styled.div`
