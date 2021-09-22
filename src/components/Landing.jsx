@@ -20,8 +20,8 @@ const Text = styled.p`
         line-height: 24px;
    }
    @media screen and (min-width: 1235px){ 
-        font-size: 36px;
-        line-height: 43px;
+        font-size: 30px;
+        line-height: 33px;
    }
     
 `
@@ -38,14 +38,18 @@ const Info = styled.div`
 const Logo = styled(FullLogo)`
     width: 38.75vw;
     height: 5.4577vh;
-    
+    position: relative;
+    z-index: 400;
+
     @media screen and (min-width: 640px){
         width: 27.4739vw;
-        height: 5.07812vh
+        height: 5.07812vh;
+        min-height: 60px;
     }
     @media screen and (min-width: 1235px){
         height: 11vh;
         width: 24.4444vw;
+        max-height: 99px;
     }
 `
 const TitleDesktop = styled(Text)`
@@ -68,6 +72,7 @@ const Title = styled(Text)`
         font-size: 24px;
         margin-left: 14.5vw;
         margin-bottom: 1.8554vh;
+        margin-top: -3.5vh;
     }
     
     @media screen and (min-width: 1235px){
@@ -87,15 +92,28 @@ const BottomRectangle = styled.div`
 const StartWrapper = styled.div`
       display: flex;
       margin-left: 11.25vw;
-
+      ${Text}:last-child{
+          margin-top: 5px;
+      }
+      
       @media screen and (min-width: 640px){
             margin-left: 14.5vw;
+            
+            ${Text}:last-child{
+                margin-top: 8px;
+            }
       }
       
       @media screen and (min-width: 1235px){
             margin-left: 10vw;
-            margin-top: -2.4vh;
+            margin-top: -4.4vh;
+            
+             ${Text}:last-child{
+                margin-top: 10px;
+            }
       }
+      
+      
 `
 
 const Bus = styled.div`
@@ -108,6 +126,7 @@ const Bus = styled.div`
     height: 23.7676vh;
     max-width: 100%;
     max-height: 100%;
+    
     @media screen and (min-width: 640px){
       height: 30.789vh;
     }
@@ -115,6 +134,7 @@ const Bus = styled.div`
     @media screen and (min-width: 800px){
         right: 1.8194vw;
         transform: none;
+        max-height: none;
     }
     
     @media screen and (min-width: 1100px){
@@ -329,18 +349,20 @@ const PredictWrapper = styled.div`
 
 const Link = styled.a`
     color: white;
-    left: 23%;
     position: absolute;
     text-decoration: underline;
-    font-size: 10px;
-    bottom: 9%;
-    max-width: 41%;
+    font-size: 14px;
+    bottom: 9vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: max-content;
     @media screen and (min-width: 640px){
-        bottom: 10.5%;
-        font-size: 14px;
+        bottom: 8vh;
+        font-size: 24px;
     }
     @media screen and (min-width: 1100px){
-        font-size: 18px;
+        font-size: 32px;
+        bottom: 4.5vh;
     }
 `
 
@@ -380,6 +402,7 @@ const Landing = () => {
 
     return (<Wrapper>
         <Background />
+        <Link href={'https://startup5.ru/?utm_source=tg&utm_medium=channel&utm_campaign=fortune&utm_content=24.09.2021'} target={'_blank'}> Узнать больше о кейс-чемпионате</Link>
         <Info>
             <Logo />
             <TitleDesktop>{'Предлагаем испытать\nудачу и поиграть в игру :)'}</TitleDesktop>
@@ -391,7 +414,6 @@ const Landing = () => {
                 <Text>
                     {'Открой коробку –\nполучи печеньку!'}
                 </Text>
-                <br />
                 <Text>
                     {'И узнай свою роль\nв офисе «Пятёрочки»!'}
                 </Text>
@@ -399,7 +421,6 @@ const Landing = () => {
         </StartWrapper>
         <Bus>
             <BusImg src={bus} alt={''}/>
-            <Link href={'https://startup5.ru/'} target={'_blank'}> Узнать больше о кейс-чемпионате</Link>
             <PresentWrapper onClick={onOpenGif}>
                 <PresentImg src={present} alt={''}/>
             </PresentWrapper>
