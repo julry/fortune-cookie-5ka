@@ -6,6 +6,7 @@ import {StartButton} from "./StartButton";
 import {bus, cookie, present} from "../constants/images";
 import {getText} from "../utils/getText";
 import {ShareButton} from "./ShareButton";
+import {getShareParams} from "../utils/getShareParams";
 
 const Wrapper = styled.div`
     position: relative;
@@ -433,6 +434,7 @@ const Landing = () => {
 
     const onShare = (event) => {
         event.stopPropagation();
+        window.location.href=getShareParams(text);
     };
 
 
