@@ -457,7 +457,10 @@ const Landing = () => {
             onShare(event);
         });
         if (userId&&!postId){
-            onWallPost(userId, text).then((res)=> setPostId(res))
+            onWallPost(userId, text).then((res)=> {
+                console.log(res);
+                setPostId(res)
+            })
         }
     };
 

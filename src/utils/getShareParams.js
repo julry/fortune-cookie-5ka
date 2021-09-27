@@ -16,6 +16,7 @@ export const getShareParams = (result) => {
 export const getLogin = async () => {
     let userId = null;
     await window.VK.Auth.login((res)=> {
+        console.log(res);
        userId = res;
     }, 8192);
     return userId
