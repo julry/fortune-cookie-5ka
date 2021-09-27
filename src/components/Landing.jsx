@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styled, {keyframes} from 'styled-components';
 import Background from "./Background";
 import {FullLogo} from "./svg/FullLogo";
@@ -409,16 +409,18 @@ const ShareButtonStyled = styled(ShareButton)`
         bottom: 5vh;
     }
 `
-
+const WallPostButton = styled.div`
+    position: absolute;
+    left: -9999px;
+    top: -99999px;
+`
 const Landing = () => {
     const [isCookieShow, setIsCookieShown] = useState(false);
     const [loadSrc, setLoadSrc] = useState(cookie+"?a="+Math.random()*1000);
     const [text, setText] = useState('');
     const [isTextShown, setIsTextShown] = useState(false);
     const [isGifLoaded, setIsGifLoaded] = useState(false);
-    const [userId, setUserId] = useState(null)
-    const [postId, setPostId] = useState(null)
-
+    const [userId, setUserId] = useState(null);
     const onOpenGif = () => {
         setIsCookieShown(true);
     }
@@ -445,25 +447,27 @@ const Landing = () => {
 
     }
 
-    const onShare = (event) => {
+    const onVkLogin = (event) => {
         event.stopPropagation();
-        if (userId && postId) {
-            setUserId(null);
-            setPostId(null);
-            return;
-        }
-        if (!userId) getLogin().then(res => {
-            setUserId(res);
-            onShare(event);
+        window.VK.Auth.login(null, 8192);
+        window.VK.Observer.subscribe('auth.login', function (response) {
+            setUserId(response.session?.user?.id);
+            if (wallPostRef) wallPostRef.current.click(response.session?.user?.id);
         });
-        if (userId&&!postId){
-            onWallPost(userId, text).then((res)=> {
-                console.log(res);
-                setPostId(res)
-            })
-        }
     };
 
+    const onWallPost = () => {
+        if (userId) {
+            window.VK.Api.call('wall.post',
+                {
+                    owner_id: userId,
+                    message: `${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`,
+                    attachments: 'https://julry.github.io/fortune-cookie-5ka/build/'
+                }, () => {});
+        }
+    }
+
+    const wallPostRef = useRef(null);
 
     return (<Wrapper>
         <Background />
@@ -504,10 +508,11 @@ const Landing = () => {
 
                     )}
                 </CookieWrapper>
-                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={onShare} />}
+                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={!userId ? onVkLogin : onWallPost} />}
             </GifWrapper>
         )}
         <BottomRectangle />
+        <WallPostButton ref={wallPostRef} onClick={(userId) => onWallPost(userId)}/>
     </Wrapper>)
 }
 
