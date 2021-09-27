@@ -409,11 +409,49 @@ const ShareButtonStyled = styled(ShareButton)`
         bottom: 5vh;
     }
 `
-const WallPostButton = styled.div`
+
+const PrevPostWrapper = styled.div`
+    height: 100%;
+    width: 100%;
     position: absolute;
-    left: -9999px;
-    top: -99999px;
+    z-index: 1000;
+    background: rgba(0,0,0,0.5);
 `
+const PrevPost = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid green;
+    transform: translate(-50%, -50%);
+`
+const Button = styled.div`
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    background: #009023;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+    
+    &:last-child{
+        margin-left: 10px;
+        border: 1px solid #009023;
+        background: white;
+        color: #009023;
+    }
+`
+
+const FlexCont = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+`
+
 const Landing = () => {
     const [isCookieShow, setIsCookieShown] = useState(false);
     const [loadSrc, setLoadSrc] = useState(cookie+"?a="+Math.random()*1000);
@@ -421,6 +459,8 @@ const Landing = () => {
     const [isTextShown, setIsTextShown] = useState(false);
     const [isGifLoaded, setIsGifLoaded] = useState(false);
     const [userId, setUserId] = useState(null);
+    const [isPosting, setIsPosting] = useState(null);
+
     const onOpenGif = () => {
         setIsCookieShown(true);
     }
@@ -452,11 +492,12 @@ const Landing = () => {
         window.VK.Auth.login(null, 8192);
         window.VK.Observer.subscribe('auth.login', function (response) {
             setUserId(response.session?.user?.id);
-            if (wallPostRef) wallPostRef.current.click(response.session?.user?.id);
+            setIsPosting(true);
         });
     };
 
-    const onWallPost = () => {
+    const onWallPost = (event) => {
+        event.stopPropagation();
         if (userId) {
             window.VK.Api.call('wall.post',
                 {
@@ -467,7 +508,11 @@ const Landing = () => {
         }
     }
 
-    const wallPostRef = useRef(null);
+    const onRejectPosting = (event) => {
+        event.stopPropagation();
+        setIsPosting(false);
+        setUserId(null);
+    }
 
     return (<Wrapper>
         <Background />
@@ -508,11 +553,23 @@ const Landing = () => {
 
                     )}
                 </CookieWrapper>
-                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={!userId ? onVkLogin : onWallPost} />}
+                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={onVkLogin} />}
+                {isPosting && (
+                    <PrevPostWrapper>
+                        <PrevPost>
+                            <p> <b>На твоей стене будет размещен пост:</b></p>
+                            <p>{`${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`}</p>
+                            <FlexCont>
+                                <Button onClick={onWallPost}>Подтвердить</Button>
+                                <Button onClick={onRejectPosting}>Отменить</Button>
+                            </FlexCont>
+
+                        </PrevPost>
+                    </PrevPostWrapper>
+                )}
             </GifWrapper>
         )}
         <BottomRectangle />
-        <WallPostButton ref={wallPostRef} onClick={(userId) => onWallPost(userId)}/>
     </Wrapper>)
 }
 
