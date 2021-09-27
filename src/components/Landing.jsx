@@ -416,8 +416,8 @@ const Landing = () => {
     const [text, setText] = useState('');
     const [isTextShown, setIsTextShown] = useState(false);
     const [isGifLoaded, setIsGifLoaded] = useState(false);
-    const [userId, setUserId] = useState('')
-    const [postId, setPostId] = useState('')
+    const [userId, setUserId] = useState(null)
+    const [postId, setPostId] = useState(null)
 
     const onOpenGif = () => {
         setIsCookieShown(true);
@@ -458,11 +458,10 @@ const Landing = () => {
         if (userId && !postId) window.VK.Api.call('wall.post',
             {
                 owner_id: userId,
-                message: `${text} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`
+                message: `${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`
             },
             (r)=> {
             setPostId(r);
-            console.log(r);
         });
         onShare(event);
     };
