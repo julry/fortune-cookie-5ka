@@ -446,7 +446,7 @@ const Landing = () => {
     const onShare = (event) => {
         event.stopPropagation();
         // window.location.href=getShareParams(text);
-        window.VK.Auth.login((res)=>console.log('result', res), 1);
+        window.VK.Auth.login((res)=> window.VK.wall.post({owner_id: res.user.id, message: 'test'}), 1);
     };
 
 
