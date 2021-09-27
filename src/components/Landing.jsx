@@ -453,7 +453,7 @@ const Landing = () => {
             return;
         }
         if (!userId) getLogin().then(res => {
-            setUserId(res.session.user.id);
+            setUserId(res);
             onShare(event);
         });
         if (userId&&!postId){

@@ -17,7 +17,7 @@ export const getLogin = async () => {
     let userId = null;
     await window.VK.Auth.login((res)=> {
         console.log(res);
-       userId = res;
+       userId = res.session.user.id;
     }, 8192);
     return userId
 }
