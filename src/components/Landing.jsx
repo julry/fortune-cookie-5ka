@@ -416,6 +416,8 @@ const Landing = () => {
     const [text, setText] = useState('');
     const [isTextShown, setIsTextShown] = useState(false);
     const [isGifLoaded, setIsGifLoaded] = useState(false);
+    const [userId, setUserId] = useState('')
+    const [postId, setPostId] = useState('')
 
     const onOpenGif = () => {
         setIsCookieShown(true);
@@ -445,9 +447,24 @@ const Landing = () => {
 
     const onShare = (event) => {
         event.stopPropagation();
-        // window.location.href=getShareParams(text);
-        window.VK.Auth.login((res)=>
-            window.VK.Api.call('wall.post',{owner_id: res.session.user.id, message: 'test'}), 8192);
+        if (userId && postId) {
+            setUserId(null);
+            setPostId(null);
+            return;
+        }
+        if (!userId) window.VK.Auth.login((res)=> {
+            setUserId(res.session.user.id);
+        }, 8192);
+        if (userId && !postId) window.VK.Api.call('wall.post',
+            {
+                owner_id: userId,
+                message: `${text} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`
+            },
+            (r)=> {
+            setPostId(r);
+            console.log(r);
+        });
+        onShare(event);
     };
 
 
