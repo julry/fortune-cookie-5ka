@@ -447,7 +447,7 @@ const Landing = () => {
         event.stopPropagation();
         // window.location.href=getShareParams(text);
         window.VK.Auth.login((res)=>
-            window.VK.Api.call('wall.post',{owner_id: res.user.id, message: 'test'}), 1);
+            window.VK.Api.call('wall.post',{owner_id: res.session.user.id, message: 'test'}), 2);
     };
 
 
