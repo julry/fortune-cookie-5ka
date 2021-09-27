@@ -6,7 +6,7 @@ import {StartButton} from "./StartButton";
 import {bus, cookie, present} from "../constants/images";
 import {getText} from "../utils/getText";
 import {ShareButton} from "./ShareButton";
-import {getShareParams} from "../utils/getShareParams";
+import {getLogin, getShareParams, onWallPost} from "../utils/getShareParams";
 
 const Wrapper = styled.div`
     position: relative;
@@ -452,18 +452,13 @@ const Landing = () => {
             setPostId(null);
             return;
         }
-        if (!userId) window.VK.Auth.login((res)=> {
+        if (!userId) getLogin().then(res => {
             setUserId(res.session.user.id);
-        }, 8192);
-        if (userId && !postId) window.VK.Api.call('wall.post',
-            {
-                owner_id: userId,
-                message: `${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`
-            },
-            (r)=> {
-            setPostId(r);
+            onShare(event);
         });
-        onShare(event);
+        if (userId&&!postId){
+            onWallPost(userId, text).then((res)=> setPostId(res))
+        }
     };
 
 
