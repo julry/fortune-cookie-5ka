@@ -9,7 +9,7 @@ export const getShareParams = (result) => {
     const queryParams = new URLSearchParams();
     queryParams.append('url', url);
     queryParams.append('title', shareTitle);
-    !isMobile && queryParams.append("comment", shareDescription);
+    queryParams.append("comment", shareDescription);
     queryParams.append('image', shareImage);
 
     return `vk://vk.com/share.php?${queryParams.toString()}`;
