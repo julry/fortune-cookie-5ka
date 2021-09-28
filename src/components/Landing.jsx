@@ -7,6 +7,7 @@ import {bus, cookie, present} from "../constants/images";
 import {getText} from "../utils/getText";
 import {ShareButton} from "./ShareButton";
 import {getShareParams} from "../utils/getShareParams";
+import {Copy} from "./svg/Copy";
 
 const Wrapper = styled.div`
     position: relative;
@@ -453,6 +454,25 @@ const FlexCont = styled.div`
     margin-top: 10px;
 `
 
+const CopySvg = styled(Copy)`
+    height: 14px;
+    width: 14px;
+    cursor: pointer;
+`
+
+const Notification = styled.div`
+    background: #98C21F;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30vw;
+    max-width: 300px;
+    padding: 5px;
+    z-index: 100000;
+    color: white;
+    text-align: center;
+`
+
 const Landing = () => {
     const [isCookieShow, setIsCookieShown] = useState(false);
     const [loadSrc, setLoadSrc] = useState(cookie+"?a="+Math.random()*1000);
@@ -460,6 +480,7 @@ const Landing = () => {
     const [isTextShown, setIsTextShown] = useState(false);
     const [isGifLoaded, setIsGifLoaded] = useState(false);
     const [isPosting, setIsPosting] = useState(null);
+    const [isNotification, setIsNotification] = useState(false);
 
     const onOpenGif = () => {
         setIsCookieShown(true);
@@ -501,6 +522,23 @@ const Landing = () => {
     const onRejectPosting = (event) => {
         event.stopPropagation();
         setIsPosting(false);
+    }
+
+    const onCopyText = (e) => {
+        e.stopPropagation();
+
+        const el = document.createElement('textarea');
+        el.value = `${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+
+        setIsNotification(true);
+        setTimeout(()=> setIsNotification(false), 1500);
     }
 
     return (<Wrapper>
@@ -546,7 +584,10 @@ const Landing = () => {
                 {isPosting && (
                     <PrevPostWrapper>
                         <PrevPost>
-                            <p> <b>Скопируй и размести на своей стене пост и участвуй в розыгрыше призов:</b></p>
+                            <p> <b>Скопируй и размести на своей стене пост и участвуй в розыгрыше призов:</b> <span>
+                                <CopySvg height={'14px'} width={'14px'} onClick={onCopyText}/>
+                            </span>
+                            </p>
                             <p>{`${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`}</p>
                             <FlexCont>
                                 <Button onClick={onWallPost}>Участвовать</Button>
@@ -558,6 +599,7 @@ const Landing = () => {
                 )}
             </GifWrapper>
         )}
+        {isNotification && <Notification> Текст скопирован </Notification>}
         <BottomRectangle />
     </Wrapper>)
 }
