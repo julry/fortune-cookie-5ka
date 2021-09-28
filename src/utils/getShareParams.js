@@ -12,5 +12,5 @@ export const getShareParams = (result) => {
     queryParams.append("comment", shareDescription);
     queryParams.append('image', shareImage);
 
-    return `vk://vk.com/share.php?${queryParams.toString()}`;
+    return `${isMobile ? 'vk' : 'http'}://vk.com/share.php?${queryParams.toString()}`;
 };
