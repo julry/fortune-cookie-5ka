@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled, {keyframes} from 'styled-components';
 import Background from "./Background";
 import {FullLogo} from "./svg/FullLogo";
@@ -6,7 +6,7 @@ import {StartButton} from "./StartButton";
 import {bus, cookie, present} from "../constants/images";
 import {getText} from "../utils/getText";
 import {ShareButton} from "./ShareButton";
-import {getLogin, getShareParams, onWallPost} from "../utils/getShareParams";
+import {getShareParams} from "../utils/getShareParams";
 
 const Wrapper = styled.div`
     position: relative;
@@ -437,7 +437,8 @@ const Button = styled.div`
     color: white;
     padding: 8px;
     cursor: pointer;
-    
+    font-family: '5kaSansDesign', Tahoma, Geneva, sans-serif;
+
     &:last-child{
         margin-left: 10px;
         border: 1px solid #009023;
@@ -458,7 +459,6 @@ const Landing = () => {
     const [text, setText] = useState('');
     const [isTextShown, setIsTextShown] = useState(false);
     const [isGifLoaded, setIsGifLoaded] = useState(false);
-    const [userId, setUserId] = useState(null);
     const [isPosting, setIsPosting] = useState(null);
 
     const onOpenGif = () => {
@@ -487,31 +487,20 @@ const Landing = () => {
 
     }
 
-    const onVkLogin = (event) => {
+    const onPostGenerate = (event) => {
         event.stopPropagation();
-        window.VK.Auth.login(null, 8192);
-        window.VK.Observer.subscribe('auth.login', function (response) {
-            setUserId(response.session?.user?.id);
-            setIsPosting(true);
-        });
+
+        setIsPosting(true);
     };
 
     const onWallPost = (event) => {
         event.stopPropagation();
-        if (userId) {
-            window.VK.Api.call('wall.post',
-                {
-                    owner_id: userId,
-                    message: `${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`,
-                    attachments: 'https://julry.github.io/fortune-cookie-5ka/build/'
-                }, () => {});
-        }
+        window.location.href = getShareParams(text);
     }
 
     const onRejectPosting = (event) => {
         event.stopPropagation();
         setIsPosting(false);
-        setUserId(null);
     }
 
     return (<Wrapper>
@@ -553,14 +542,14 @@ const Landing = () => {
 
                     )}
                 </CookieWrapper>
-                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={onVkLogin} />}
+                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={onPostGenerate} />}
                 {isPosting && (
                     <PrevPostWrapper>
                         <PrevPost>
-                            <p> <b>На твоей стене будет размещен пост:</b></p>
+                            <p> <b>Скопируй и размести на своей стене пост и участвуй в розыгрыше призов:</b></p>
                             <p>{`${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`}</p>
                             <FlexCont>
-                                <Button onClick={onWallPost}>Подтвердить</Button>
+                                <Button onClick={onWallPost}>Участвовать</Button>
                                 <Button onClick={onRejectPosting}>Отменить</Button>
                             </FlexCont>
 
