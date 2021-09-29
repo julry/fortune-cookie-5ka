@@ -10,10 +10,11 @@ const Button = styled.button`
    border: none;
    outline: none;
    cursor: pointer;
-   max-width: 90vw;
+   max-width: 65vw;
    @media screen and (min-width: 640px){
       padding: 14px 28px;
       border-radius: 20px;
+      max-width: 400px;
    }
 `
 
