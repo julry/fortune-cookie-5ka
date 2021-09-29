@@ -6,8 +6,6 @@ import {StartButton} from "./StartButton";
 import {bus, cookie, present} from "../constants/images";
 import {getText} from "../utils/getText";
 import {ShareButton} from "./ShareButton";
-import {getShareParams} from "../utils/getShareParams";
-import {Copy} from "./svg/Copy";
 
 const Wrapper = styled.div`
     position: relative;
@@ -376,27 +374,38 @@ const PredictWrapper = styled.div`
 `
 
 const Link = styled.a`
-    color: white;
+    color: #009023;
     position: absolute;
-    text-decoration: underline;
+    text-decoration: none;
     font-size: 14px;
-    bottom: 9vh;
+    bottom: 6.5vh;
     left: 50%;
     transform: translate(-50%, 0);
     width: max-content;
+    
+    border-radius: 20px;
+    padding: 8px;
+    cursor: pointer;
+    background: white;
+    font-family: '5kaSansDesign', Tahoma, Geneva, sans-serif;
+    border: 1px solid #009023;
+    
     @media screen and (min-width: 640px){
-        bottom: 8vh;
+        bottom: 6vh;
         font-size: 24px;
+        padding: 10px;
+
     }
     @media screen and (min-width: 1100px){
         font-size: 32px;
         bottom: 4.5vh;
+        padding: 10px 15px;
     }
 `
 
 const ShareButtonStyled = styled(ShareButton)`
     position: absolute;
-    right: 6vw;
+    right: 2vw;
     bottom: 6vh;
     animation: ${animateShare} 0.3s ease-in;
     animation-fill-mode: both;
@@ -411,67 +420,7 @@ const ShareButtonStyled = styled(ShareButton)`
     }
 `
 
-const PrevPostWrapper = styled.div`
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 1000;
-    background: rgba(0,0,0,0.5);
-`
-const PrevPost = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 90%;
-    max-width: 600px;
-    padding: 20px;
-    border-radius: 20px;
-    background: white;
-    border: 1px solid green;
-    transform: translate(-50%, -50%);
-`
-const Button = styled.div`
-    outline: none;
-    border: none;
-    border-radius: 20px;
-    background: #009023;
-    color: white;
-    padding: 8px;
-    cursor: pointer;
-    font-family: '5kaSansDesign', Tahoma, Geneva, sans-serif;
 
-    &:last-child{
-        margin-left: 10px;
-        border: 1px solid #009023;
-        background: white;
-        color: #009023;
-    }
-`
-
-const FlexCont = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-`
-
-const CopySvg = styled(Copy)`
-    height: 14px;
-    width: 14px;
-    cursor: pointer;
-`
-
-const Notification = styled.div`
-    background: #98C21F;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 30vw;
-    max-width: 300px;
-    padding: 5px;
-    z-index: 100000;
-    color: white;
-    text-align: center;
-`
 
 const Landing = () => {
     const [isCookieShow, setIsCookieShown] = useState(false);
@@ -479,8 +428,6 @@ const Landing = () => {
     const [text, setText] = useState('');
     const [isTextShown, setIsTextShown] = useState(false);
     const [isGifLoaded, setIsGifLoaded] = useState(false);
-    const [isPosting, setIsPosting] = useState(null);
-    const [isNotification, setIsNotification] = useState(false);
 
     const onOpenGif = () => {
         setIsCookieShown(true);
@@ -508,42 +455,15 @@ const Landing = () => {
 
     }
 
-    const onPostGenerate = (event) => {
+    const onLinkOpen = (event) => {
         event.stopPropagation();
-
-        setIsPosting(true);
+        window.location.href = 'https://rabota5ka.ru/perspective'
     };
 
-    const onWallPost = (event) => {
-        event.stopPropagation();
-        window.location.href = getShareParams(text);
-    }
-
-    const onRejectPosting = (event) => {
-        event.stopPropagation();
-        setIsPosting(false);
-    }
-
-    const onCopyText = (e) => {
-        e.stopPropagation();
-
-        const el = document.createElement('textarea');
-        el.value = `${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`;
-        el.setAttribute('readonly', '');
-        el.style.position = 'absolute';
-        el.style.left = '-9999px';
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-
-        setIsNotification(true);
-        setTimeout(()=> setIsNotification(false), 1500);
-    }
 
     return (<Wrapper>
         <Background />
-        <Link href={'https://startup5.ru/?utm_source=tg&utm_medium=channel&utm_campaign=fortune&utm_content=24.09.2021'} target={'_blank'}> Узнать больше о кейс-чемпионате</Link>
+        <Link href={'https://startup5.ru/?utm_source=tg&utm_medium=channel&utm_campaign=fortune&utm_content=24.09.2021'} target={'_blank'}> Участвуй в кейс-чемпионате «Пятёрочки»!</Link>
         <Info>
             <Logo />
             <TitleDesktop>{'Предлагаем испытать\nудачу и поиграть в игру :)'}</TitleDesktop>
@@ -580,26 +500,9 @@ const Landing = () => {
 
                     )}
                 </CookieWrapper>
-                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={onPostGenerate} />}
-                {isPosting && (
-                    <PrevPostWrapper>
-                        <PrevPost>
-                            <p> <b>Скопируй и размести на своей стене пост и участвуй в розыгрыше призов:</b> <span>
-                                <CopySvg height={'14px'} width={'14px'} onClick={onCopyText}/>
-                            </span>
-                            </p>
-                            <p>{`${text.title} - моя будущая профессия в компании «Пятёрочка»! Хочешь узнать, какая карьера ждёт тебя в топовой компании в сфере ритейла? Переходи по ссылке и получи предсказание. А еще - регистрируйся на кейс-чемпионат «Пятёрочки» по предпринимательским идеям в ритейле #Стартапни - чтобы не только гадать, но и готовиться к карьерному взлету!`}</p>
-                            <FlexCont>
-                                <Button onClick={onWallPost}>Участвовать</Button>
-                                <Button onClick={onRejectPosting}>Отменить</Button>
-                            </FlexCont>
-
-                        </PrevPost>
-                    </PrevPostWrapper>
-                )}
+                {isTextShown && isGifLoaded && <ShareButtonStyled onClick={onLinkOpen} />}
             </GifWrapper>
         )}
-        {isNotification && <Notification> Текст скопирован </Notification>}
         <BottomRectangle />
     </Wrapper>)
 }
