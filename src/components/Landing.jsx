@@ -156,7 +156,7 @@ const PresentWrapper = styled.div`
   bottom:46.2%;
   height: 37%;
   overflow: hidden;
-  
+  cursor: pointer;
 `
 const PresentImg = styled.img`
   object-fit: cover;
