@@ -392,14 +392,15 @@ const Link = styled.a`
     
     @media screen and (min-width: 640px){
         bottom: 6vh;
-        font-size: 24px;
+        font-size: 18px;
         padding: 10px;
 
     }
     @media screen and (min-width: 1100px){
-        font-size: 32px;
-        bottom: 4.5vh;
-        padding: 10px 15px;
+        font-size: 23px;
+        bottom: 2.5vh;
+        padding: 10px 12px;
+        width: max-content;
     }
 `
 
