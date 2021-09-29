@@ -6,6 +6,7 @@ const Button = styled(NextArrow)`
    width: 38px;
    height: 38px;
    margin-right: 15px;
+   cursor: pointer;
    
    @media screen and (min-width: 640px){
       width: 5.5989vw;
