@@ -382,7 +382,8 @@ const Link = styled.a`
     left: 50%;
     transform: translate(-50%, 0);
     width: max-content;
-    
+    display: inline-block;
+    text-align: center;
     border-radius: 20px;
     padding: 8px;
     cursor: pointer;
