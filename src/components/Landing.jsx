@@ -8,7 +8,6 @@ import {getText} from "../utils/getText";
 import {Text, Title, TitleDesktop} from "./styles/textStyles";
 import {Cookie} from "./Cookie";
 import {Bus} from "./Bus";
-import {CaseChampLink} from "./caseChampLink";
 import {preloadImage} from "../utils/preloadImage";
 
 const Wrapper = styled.div`
@@ -127,7 +126,6 @@ const Landing = () => {
     return (
         <Wrapper>
             <Background />
-            <CaseChampLink />
             <Info>
                 <Logo />
                 <TitleDesktop>{'Предлагаем испытать\nудачу и поиграть в игру :)'}</TitleDesktop>
