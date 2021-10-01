@@ -30,7 +30,7 @@ const ShareText = styled.span`
    }
 `;
 
-export const ShareButton = (props) => {
+export const TalentsLinkButton = (props) => {
     return (
         <Button {...props}>
             <ShareText>Узнай, как применить свои таланты в «Пятёрочке»!</ShareText>
