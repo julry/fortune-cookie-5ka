@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Background_top} from "./svg/Backround_top";
 import {Background_top_tablets} from "./svg/Background_top_tablets";
+import { isIE } from 'react-device-detect';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -42,13 +43,24 @@ const TopRectangleMobile = styled(Background_top)`
     }
 `
 
+const IeBackground = styled.div`
+    height: 50vh;
+    background: green;
+    transform: skew(0deg, -10deg) translate(0, -20vh);
+`
+
 const Background = () => {
     return (<Wrapper>
-        <TopRectangleWrapper>
-            <TopRectangle />
-        </TopRectangleWrapper>
-        <TopRectangleMobile />
-        <TopRectangleTablets />
+        { isIE ?
+            <IeBackground />
+            : (<>
+                <TopRectangleWrapper>
+                    <TopRectangle />
+                </TopRectangleWrapper>
+                <TopRectangleMobile />
+                <TopRectangleTablets />
+            </>
+        )}
     </Wrapper>)
 }
 
