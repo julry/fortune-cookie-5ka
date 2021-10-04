@@ -1,9 +1,10 @@
-import {FortuneText, FortuneTextWrapper, FortuneTitle} from "./styles/textStyles";
-import {CookieWrapper, Gif, GifWrapper, PredictWrapper} from "./styles/cookieStyles";
 import React from "react";
 import styled from "styled-components";
 import {TalentsLinkButton} from "./TalentsLinkButton";
+import {FortuneText, FortuneTextWrapper, FortuneTitle} from "./styles/textStyles";
+import {CookieWrapper, Gif, GifWrapper, PredictWrapper} from "./styles/cookieStyles";
 import * as keyframes from "../utils/keyframes";
+import { isIE } from 'react-device-detect';
 
 const TalentsButtonStyled = styled(TalentsLinkButton)`
     position: absolute;
@@ -26,7 +27,7 @@ const TalentsButtonStyled = styled(TalentsLinkButton)`
 export const Cookie = (props) => {
     const {isTextShown, isGifLoaded, onCloseGif, loadSrc, onLoadGif, text, onTalentBtnClick} = props;
    return (
-       <GifWrapper onClick={onCloseGif}>
+       <GifWrapper onClick={onCloseGif} height={isIE ? '100vh' : '100%'}>
         <CookieWrapper>
             <Gif src={loadSrc} alt={''} onLoad={onLoadGif}/>
             {isTextShown && isGifLoaded && (

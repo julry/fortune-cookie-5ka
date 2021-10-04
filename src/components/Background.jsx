@@ -45,14 +45,35 @@ const TopRectangleMobile = styled(Background_top)`
 
 const IeBackground = styled.div`
     height: 50vh;
-    background: green;
-    transform: skew(0deg, -10deg) translate(0, -20vh);
+    background: rgb(0, 143, 50);
+    transform: skew(0deg, -13deg) translate(0, -26vh);
+    position: relative;
+    border-bottom: 2px solid black;
+`
+
+const IeRedSqr = styled.div`
+    background: rgb(235, 35, 22);
+    width: 300px;
+    height: 150px;
+    border: 2px solid black;
+    transform: skew(0deg, 13deg) rotate(-13deg);
+    position: absolute;
+    bottom: -152px;
+    left: 85vw;
+`
+
+const IeRedSqrTop = styled(IeRedSqr)`
+    bottom: 1px;
+    left: calc(85vw - 34px);
 `
 
 const Background = () => {
     return (<Wrapper>
         { isIE ?
-            <IeBackground />
+            <IeBackground>
+                <IeRedSqrTop/>
+                <IeRedSqr />
+            </IeBackground>
             : (<>
                 <TopRectangleWrapper>
                     <TopRectangle />
