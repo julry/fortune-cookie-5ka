@@ -13,7 +13,6 @@ import {preloadImage} from "../utils/preloadImage";
 const Wrapper = styled.div`
     position: relative;
     overflow: hidden;
-    height: 100%;
 `
 
 const Info = styled.div`
@@ -47,7 +46,7 @@ const Logo = styled(FullLogo)`
 `
 
 const BottomRectangle = styled.div`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     background: #98C21F;
