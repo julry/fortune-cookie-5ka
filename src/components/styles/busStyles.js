@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const BusWrapper = styled.div`
-    position: absolute;
+    position: fixed;
     width: fit-content;
     bottom: 13.58vh;
     right: 50%;
