@@ -90,7 +90,7 @@ const Landing = () => {
         setIsCookieShown(true);
     }
 
-    useEffect(()=>preloadImage(loadSrc), []);
+    useEffect(()=>preloadImage(loadSrc), [loadSrc]);
 
     useEffect(()=>{
        if (isGifLoaded) {
